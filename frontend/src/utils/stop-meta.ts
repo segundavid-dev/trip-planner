@@ -23,12 +23,3 @@ export const STOP_META: Record<StopType, StopMeta> = {
   rest: { label: "Rest Break", color: "#14b8a6", icon: Coffee01Icon },
   overnight: { label: "Overnight Rest", color: "#7c3aed", icon: MoonIcon },
 };
-
-export const STOP_LEGEND_ORDER: StopType[] = [
-  "current",
-  "pickup",
-  "fuel",
-  "rest",
-  "overnight",
-  "dropoff",
-];

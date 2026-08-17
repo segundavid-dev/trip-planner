@@ -10,6 +10,13 @@ from .services.routing import RoutingError, get_route
 from .services.trip_planner import build_trip_plan
 
 
+class HealthView(APIView):
+    """Return a simple liveness check for the hosted API."""
+
+    def get(self, request):
+        return Response({"status": "ok"})
+
+
 class TripPlanView(APIView):
     """Plan a compliant trip from free-text locations and cycle hours."""
 
