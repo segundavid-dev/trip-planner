@@ -2,7 +2,7 @@ import { Route01Icon } from "../utils/hugeicons";
 
 export function EmptyState() {
   return (
-    <div className="flex h-full flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 bg-white/60 p-10 text-center">
+    <div className="flex h-full flex-col items-center justify-center rounded-lg border border-dashed border-gray-300 bg-white/60 p-6 text-center sm:p-10">
       <span className="flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-600">
         <Route01Icon size={28} />
       </span>
