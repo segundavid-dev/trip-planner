@@ -5,7 +5,7 @@ import {
   Home01Icon,
   PackageIcon,
   WarehouseIcon,
-} from "hugeicons-react";
+} from "../utils/hugeicons";
 import type { ApiError, TripPlanRequest } from "../types";
 import { Button, Field, Input, Spinner } from "../ui";
 

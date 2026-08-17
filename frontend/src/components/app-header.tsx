@@ -1,4 +1,4 @@
-import { TruckIcon } from "hugeicons-react";
+import { TruckIcon } from "../utils/hugeicons";
 
 export function AppHeader() {
   return (
