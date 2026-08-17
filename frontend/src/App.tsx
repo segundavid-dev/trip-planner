@@ -17,8 +17,8 @@ export default function App() {
     <div className="flex h-full flex-col bg-gray-100 text-gray-900">
       <AppHeader />
 
-      <div className="flex flex-1 overflow-hidden">
-        <aside className="no-print w-96 shrink-0 overflow-y-auto border-r border-gray-200 bg-white p-6">
+      <div className="flex flex-1 flex-col overflow-hidden lg:flex-row">
+        <aside className="no-print w-full shrink-0 overflow-y-auto border-b border-gray-200 bg-white p-4 lg:w-96 lg:border-b-0 lg:border-r lg:p-6">
           <TripForm
             onSubmit={tripPlan.mutate}
             isSubmitting={tripPlan.isPending}
@@ -26,7 +26,7 @@ export default function App() {
           />
         </aside>
 
-        <main className="flex-1 overflow-y-auto p-6">
+        <main className="flex-1 overflow-y-auto p-4 lg:p-6">
           {tripPlan.isPending ? (
             <LoadingState />
           ) : plan ? (
@@ -46,7 +46,7 @@ export default function App() {
                 <h2 className="mb-3 text-base font-semibold uppercase tracking-wide text-gray-700">
                   Stops &amp; Rests
                 </h2>
-                <div className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+                <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm lg:p-5">
                   <StopsList stops={plan.stops} days={plan.days} />
                 </div>
               </section>

@@ -82,12 +82,13 @@ export function EldLog({ day, dayCount, origin, destination }: EldLogProps) {
   const hourTicks = Array.from({ length: 25 }, (_, hour) => hour);
 
   return (
-    <svg
-      viewBox="0 0 1400 560"
-      className="w-full rounded-lg border border-gray-200 bg-white shadow-sm"
-      role="img"
-      aria-label={`Daily log sheet for day ${day.day}`}
-    >
+    <div className="overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
+      <svg
+        viewBox="0 0 1400 560"
+        className="h-auto min-w-[900px] w-full"
+        role="img"
+        aria-label={`Daily log sheet for day ${day.day}`}
+      >
       <text
         x={GRID_LEFT}
         y={55}
@@ -268,6 +269,7 @@ export function EldLog({ day, dayCount, origin, destination }: EldLogProps) {
           </text>
         );
       })}
-    </svg>
+      </svg>
+    </div>
   );
 }

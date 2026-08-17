@@ -15,8 +15,9 @@ export function EldLogs({ days, origin, destination }: EldLogsProps) {
 
   return (
     <div className="space-y-4">
-      <div className="no-print flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap gap-1 rounded-lg border border-gray-200 bg-white p-1">
+      <div className="no-print flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="w-full overflow-x-auto rounded-lg border border-gray-200 bg-white p-1">
+          <div className="flex w-max gap-1">
           {days.map((day, index) => (
             <button
               key={day.day}
@@ -31,8 +32,13 @@ export function EldLogs({ days, origin, destination }: EldLogsProps) {
               Day {day.day}
             </button>
           ))}
+          </div>
         </div>
-        <Button variant="secondary" onClick={() => window.print()}>
+        <Button
+          variant="secondary"
+          onClick={() => window.print()}
+          className="w-full sm:w-auto"
+        >
           Print
         </Button>
       </div>

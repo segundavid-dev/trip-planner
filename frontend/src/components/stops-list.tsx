@@ -23,7 +23,7 @@ export function StopsList({ stops, days }: StopsListProps) {
         const day = dayMap.get(dayNumber);
         return (
           <div key={dayNumber}>
-            <div className="mb-3 flex items-center justify-between border-b border-gray-100 pb-2">
+            <div className="mb-3 flex flex-col items-start gap-1 border-b border-gray-100 pb-2 sm:flex-row sm:items-center sm:justify-between">
               <h3 className="text-sm font-semibold text-gray-900">
                 Day {dayNumber}
               </h3>

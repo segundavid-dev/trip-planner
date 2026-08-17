@@ -15,8 +15,8 @@ export function LoadingState() {
           </div>
         ))}
       </div>
-      <Skeleton className="h-96 rounded-lg" />
-      <div className="rounded-lg border border-gray-200 bg-white p-5 shadow-sm">
+      <Skeleton className="h-72 rounded-lg sm:h-96" />
+      <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm lg:p-5">
         <Skeleton className="h-40" />
       </div>
     </div>

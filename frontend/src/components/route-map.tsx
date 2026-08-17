@@ -33,9 +33,9 @@ function FitBounds({ points }: { points: [number, number][] }) {
 
 export function RouteMap({ route, stops }: RouteMapProps) {
   return (
-    <div className="relative h-96 overflow-hidden rounded-lg border border-gray-200">
-      <div className="absolute left-3 top-3 z-[500] rounded-lg border border-gray-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur">
-        <p className="text-2xl font-bold text-gray-900">
+    <div className="relative h-72 overflow-hidden rounded-lg border border-gray-200 sm:h-96">
+      <div className="absolute left-2 top-2 z-[500] rounded-lg border border-gray-200 bg-white/95 px-3 py-2 shadow-sm backdrop-blur sm:left-3 sm:top-3 sm:px-4 sm:py-3">
+        <p className="text-xl font-bold text-gray-900 sm:text-2xl">
           {route.distance_miles.toFixed(0)} mi
         </p>
         <p className="mt-0.5 text-xs text-gray-500">
