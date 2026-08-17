@@ -49,12 +49,20 @@ def get_route(coordinates: list[tuple[float, float]]) -> dict:
             timeout=REQUEST_TIMEOUT_SECONDS,
         )
         response.raise_for_status()
+    except requests.HTTPError as exc:
+        raise RoutingError(
+            "Could not compute a driving route between these locations. "
+            "They may be too far apart or not connected by road."
+        ) from exc
     except requests.RequestException as exc:
         raise RoutingError(f"Routing request failed: {exc}") from exc
 
     payload = response.json()
     if payload.get("code") != "Ok" or not payload.get("routes"):
-        raise RoutingError(f"OSRM could not compute a route: {payload.get('code')}")
+        raise RoutingError(
+            "Could not compute a driving route between these locations. "
+            "They may be too far apart or not connected by road."
+        )
 
     route = payload["routes"][0]
     geometry = route["geometry"]["coordinates"]

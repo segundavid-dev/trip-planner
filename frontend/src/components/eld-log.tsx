@@ -28,6 +28,8 @@ const LINE_COLOR = "#1f2937";
 interface EldLogProps {
   day: TripDay;
   dayCount: number;
+  origin: string;
+  destination: string;
 }
 
 function xPosition(minutes: number): number {
@@ -74,7 +76,7 @@ function remarkableEvents(events: LogEvent[]): LogEvent[] {
   );
 }
 
-export function EldLog({ day, dayCount }: EldLogProps) {
+export function EldLog({ day, dayCount, origin, destination }: EldLogProps) {
   const path = buildPath(day.events);
   const remarks = remarkableEvents(day.events);
   const hourTicks = Array.from({ length: 25 }, (_, hour) => hour);
@@ -125,6 +127,10 @@ export function EldLog({ day, dayCount }: EldLogProps) {
       </text>
       <text x={760} y={128} className="fill-gray-600" style={{ fontSize: 14 }}>
         Distance: {day.totals.distance_miles.toFixed(0)} mi
+      </text>
+
+      <text x={GRID_LEFT} y={162} className="fill-gray-600" style={{ fontSize: 13 }}>
+        Trip: {origin} {origin ? "→" : ""} {destination}
       </text>
 
       {STATUS_ORDER.map((status, index) => (
@@ -216,7 +222,14 @@ export function EldLog({ day, dayCount }: EldLogProps) {
               strokeWidth={1}
               strokeDasharray="3 3"
             />
-            <circle cx={cx} cy={cy} r={9} fill="#1d4ed8" stroke="#ffffff" strokeWidth={1.5} />
+            <circle
+              cx={cx}
+              cy={cy}
+              r={9}
+              fill="#1d4ed8"
+              stroke="#ffffff"
+              strokeWidth={1.5}
+            />
             <text
               x={cx}
               y={cy + 3.5}
@@ -230,7 +243,12 @@ export function EldLog({ day, dayCount }: EldLogProps) {
         );
       })}
 
-      <text x={GRID_LEFT} y={478} className="fill-gray-700" style={{ fontSize: 13, fontWeight: 600 }}>
+      <text
+        x={GRID_LEFT}
+        y={478}
+        className="fill-gray-700"
+        style={{ fontSize: 13, fontWeight: 600 }}
+      >
         Remarks
       </text>
       {remarks.map((event, index) => {

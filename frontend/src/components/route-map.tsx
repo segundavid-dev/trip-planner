@@ -9,8 +9,8 @@ import {
 } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import type { RouteData, TripStop } from "../types";
-import { formatTime } from "../utils/time";
 import { STOP_META } from "../utils/stop-meta";
+import { formatTime } from "../utils/time";
 
 const DEFAULT_CENTER: [number, number] = [39.5, -98.35];
 
@@ -33,7 +33,16 @@ function FitBounds({ points }: { points: [number, number][] }) {
 
 export function RouteMap({ route, stops }: RouteMapProps) {
   return (
-    <div className="h-96 overflow-hidden rounded-lg border border-gray-200">
+    <div className="relative h-96 overflow-hidden rounded-lg border border-gray-200">
+      <div className="absolute left-3 top-3 z-[500] rounded-lg border border-gray-200 bg-white/95 px-4 py-3 shadow-sm backdrop-blur">
+        <p className="text-2xl font-bold text-gray-900">
+          {route.distance_miles.toFixed(0)} mi
+        </p>
+        <p className="mt-0.5 text-xs text-gray-500">
+          {route.duration_hours.toFixed(1)} h driving
+        </p>
+      </div>
+
       <MapContainer
         center={DEFAULT_CENTER}
         zoom={4}
@@ -48,28 +57,39 @@ export function RouteMap({ route, stops }: RouteMapProps) {
           positions={route.polyline}
           pathOptions={{ color: "#2563eb", weight: 4, opacity: 0.85 }}
         />
-        {stops.map((stop) => (
-          <CircleMarker
-            key={stop.order}
-            center={[stop.latitude, stop.longitude]}
-            radius={7}
-            pathOptions={{
-              color: "#ffffff",
-              weight: 2,
-              fillColor: STOP_META[stop.type].color,
-              fillOpacity: 1,
-            }}
-          >
-            <Tooltip>
-              <span className="font-medium">{STOP_META[stop.type].label}</span>
-              <br />
-              {stop.location}
-              <br />
-              Day {stop.day} {formatTime(stop.arrival_min)} -{" "}
-              {formatTime(stop.departure_min)}
-            </Tooltip>
-          </CircleMarker>
-        ))}
+        {stops.map((stop) => {
+          const meta = STOP_META[stop.type];
+          const StopIcon = meta.icon;
+          return (
+            <CircleMarker
+              key={stop.order}
+              center={[stop.latitude, stop.longitude]}
+              radius={7}
+              pathOptions={{
+                color: "#ffffff",
+                weight: 2,
+                fillColor: meta.color,
+                fillOpacity: 1,
+              }}
+            >
+              <Tooltip direction="top" offset={[0, -8]}>
+                <div className="min-w-40">
+                  <p className="flex items-center gap-1.5 text-xs font-semibold text-gray-900">
+                    <span style={{ color: meta.color }}>
+                      <StopIcon size={14} />
+                    </span>
+                    {meta.label}
+                  </p>
+                  <p className="mt-1 text-xs text-gray-500">{stop.location}</p>
+                  <p className="mt-0.5 text-xs text-gray-500">
+                    Day {stop.day} · {formatTime(stop.arrival_min)} -{" "}
+                    {formatTime(stop.departure_min)}
+                  </p>
+                </div>
+              </Tooltip>
+            </CircleMarker>
+          );
+        })}
         <FitBounds points={route.polyline} />
       </MapContainer>
     </div>

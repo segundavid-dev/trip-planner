@@ -1,3 +1,12 @@
+import type { ComponentType } from "react";
+import {
+  Calendar01Icon,
+  Clock01Icon,
+  Coffee01Icon,
+  FuelIcon,
+  RoadIcon,
+  Timer01Icon,
+} from "hugeicons-react";
 import type { TripSummary as TripSummaryData } from "../types";
 import { Card } from "../ui";
 
@@ -5,43 +14,73 @@ interface TripSummaryProps {
   summary: TripSummaryData;
 }
 
-interface Metric {
+interface MetricConfig {
   label: string;
-  value: string;
+  icon: ComponentType<{ size?: number | string; className?: string }>;
+  accent: string;
+  value: (summary: TripSummaryData) => string;
 }
 
-function buildMetrics(summary: TripSummaryData): Metric[] {
-  return [
-    { label: "Trip Miles", value: summary.trip_miles.toFixed(0) },
-    {
-      label: "Driving Time",
-      value: `${summary.estimated_driving_hours.toFixed(1)} h`,
-    },
-    {
-      label: "On-Duty Time",
-      value: `${summary.total_on_duty_hours.toFixed(1)} h`,
-    },
-    { label: "Days", value: String(summary.number_of_days) },
-    { label: "Fuel Stops", value: String(summary.fuel_stops) },
-    { label: "Rest Stops", value: String(summary.rest_stops) },
-  ];
-}
+const METRICS: MetricConfig[] = [
+  {
+    label: "Trip Miles",
+    icon: RoadIcon,
+    accent: "bg-blue-50 text-blue-600",
+    value: (summary) => summary.trip_miles.toFixed(0),
+  },
+  {
+    label: "Driving Time",
+    icon: Clock01Icon,
+    accent: "bg-emerald-50 text-emerald-600",
+    value: (summary) => `${summary.estimated_driving_hours.toFixed(1)} h`,
+  },
+  {
+    label: "On-Duty Time",
+    icon: Timer01Icon,
+    accent: "bg-amber-50 text-amber-600",
+    value: (summary) => `${summary.total_on_duty_hours.toFixed(1)} h`,
+  },
+  {
+    label: "Days",
+    icon: Calendar01Icon,
+    accent: "bg-purple-50 text-purple-600",
+    value: (summary) => String(summary.number_of_days),
+  },
+  {
+    label: "Fuel Stops",
+    icon: FuelIcon,
+    accent: "bg-orange-50 text-orange-600",
+    value: (summary) => String(summary.fuel_stops),
+  },
+  {
+    label: "Rest Stops",
+    icon: Coffee01Icon,
+    accent: "bg-teal-50 text-teal-600",
+    value: (summary) => String(summary.rest_stops),
+  },
+];
 
 export function TripSummary({ summary }: TripSummaryProps) {
-  const metrics = buildMetrics(summary);
-
   return (
     <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-      {metrics.map((metric) => (
-        <Card key={metric.label} className="p-4">
-          <p className="text-[10px] font-medium uppercase tracking-wider text-gray-400">
-            {metric.label}
-          </p>
-          <p className="mt-1 text-xl font-semibold text-gray-900">
-            {metric.value}
-          </p>
-        </Card>
-      ))}
+      {METRICS.map((metric) => {
+        const MetricIcon = metric.icon;
+        return (
+          <Card key={metric.label} className="p-4">
+            <span
+              className={`inline-flex h-8 w-8 items-center justify-center rounded-md ${metric.accent}`}
+            >
+              <MetricIcon size={16} />
+            </span>
+            <p className="mt-3 text-[10px] font-medium uppercase tracking-wider text-gray-400">
+              {metric.label}
+            </p>
+            <p className="mt-0.5 text-xl font-semibold text-gray-900">
+              {metric.value(summary)}
+            </p>
+          </Card>
+        );
+      })}
     </div>
   );
 }

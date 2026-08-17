@@ -1,8 +1,10 @@
 import axios from "axios";
 import type { ApiError, FieldErrors } from "../types";
 
+const apiBaseUrl = import.meta.env.VITE_API_URL ?? "/api";
+
 const apiClient = axios.create({
-  baseURL: "/api",
+  baseURL: apiBaseUrl,
   headers: {
     "Content-Type": "application/json",
   },

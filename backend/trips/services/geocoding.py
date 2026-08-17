@@ -14,6 +14,7 @@ import requests
 NOMINATIM_SEARCH_URL = "https://nominatim.openstreetmap.org/search"
 REQUEST_TIMEOUT_SECONDS = 10
 USER_AGENT = "eld-route-planner/1.0"
+DEFAULT_COUNTRY_CODES = "us"
 
 
 class GeocodingError(Exception):
@@ -30,6 +31,7 @@ def geocode(location: str) -> dict:
         "format": "jsonv2",
         "limit": 1,
         "addressdetails": 1,
+        "countrycodes": DEFAULT_COUNTRY_CODES,
     }
     headers = {"User-Agent": USER_AGENT}
 
