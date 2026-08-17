@@ -6,7 +6,7 @@ import {
   FuelIcon,
   RoadIcon,
   Timer01Icon,
-} from "hugeicons-react";
+} from "../utils/hugeicons";
 import type { TripSummary as TripSummaryData } from "../types";
 import { Card } from "../ui";
 

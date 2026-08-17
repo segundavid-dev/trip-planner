@@ -6,7 +6,7 @@ import {
   MoonIcon,
   PackageIcon,
   WarehouseIcon,
-} from "hugeicons-react";
+} from "./hugeicons";
 import type { StopType } from "../types";
 
 interface StopMeta {

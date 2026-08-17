@@ -1,4 +1,4 @@
-import { Route01Icon } from "hugeicons-react";
+import { Route01Icon } from "../utils/hugeicons";
 
 export function EmptyState() {
   return (
